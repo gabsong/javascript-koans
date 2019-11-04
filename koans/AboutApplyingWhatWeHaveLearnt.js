@@ -33,12 +33,19 @@ describe("About Applying What We Have Learnt", function() {
     expect(productsICanEat.length).toBe(1);
   });
 
-  it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function () {
-      var productsICanEat = [];
+  it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function() {
+    var productsICanEat = [];
 
-      /* solve using filter() & all() / any() */
+    /* solve using filter() & all() / any() */
+    const isNotMushroom = ingredient => ingredient !== 'mushrooms';
+    _.chain(products).filter(pizza => pizza.containsNuts === false)
+      .forEach((pizza) => {
+        if (_(pizza.ingredients).all(isNotMushroom)) {
+          productsICanEat.push(pizza);
+        }
+      });
 
-      expect(productsICanEat.length).toBe(FILL_ME_IN);
+    expect(productsICanEat.length).toBe(1);
   });
 
   /*********************************************************************************/
