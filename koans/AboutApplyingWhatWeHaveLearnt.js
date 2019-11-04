@@ -37,13 +37,12 @@ describe("About Applying What We Have Learnt", function() {
     var productsICanEat = [];
 
     /* solve using filter() & all() / any() */
-    const isNotMushroom = ingredient => ingredient !== 'mushrooms';
-    _.chain(products).filter(pizza => pizza.containsNuts === false)
-      .forEach((pizza) => {
-        if (_(pizza.ingredients).all(isNotMushroom)) {
-          productsICanEat.push(pizza);
-        }
-      });
+    const hasMushrooms = ingredient => ingredient === 'mushrooms';
+    // find all pizza(s) that do not contain nuts and do not contain mushrooms
+    productsICanEat = _.chain(products)
+      .filter(pizza => !pizza.containsNuts)
+      .filter((pizza) => !_(pizza.ingredients).any(hasMushrooms))
+      .value();
 
     expect(productsICanEat.length).toBe(1);
   });
